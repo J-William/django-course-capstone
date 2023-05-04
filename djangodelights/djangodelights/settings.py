@@ -10,22 +10,25 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
 import json
-from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+CONFIG_DIR = str(BASE_DIR) + '/config.json'
 
-with open('config.json') as f:
+# Load configuration
+with open(CONFIG_DIR) as f:
     CONFIG = json.loads(f.read())
 
 def getConfig(parameter, config=CONFIG):
     try:
         return config[parameter]
     except:
-        err = f'{parameter} not set'
+        err = f'Config parameter: {parameter} not set!'
         raise ImproperlyConfigured(err)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -48,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'inventory'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +61,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
 ROOT_URLCONF = 'djangodelights.urls'
