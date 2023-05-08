@@ -10,12 +10,14 @@ class Ingredient(models.Model):
     def __str__(self) -> str:
         return self.name
 
+
 class MenuItem(models.Model):
     title = models.CharField(max_length=64)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self) -> str:
         return self.title
+
 
 class RecipeRequirement(models.Model):
     menu_item = models.ForeignKey(
@@ -30,6 +32,7 @@ class RecipeRequirement(models.Model):
 
     def __str__(self) -> str:
         return f'{self.menu_item} requirement {self.ingredient}'
+
 
 class Purchase(models.Model):
     menu_item = models.ForeignKey(
