@@ -29,7 +29,7 @@ class RecipeRequirement(models.Model):
     quantity = models.DecimalField(max_digits=4, decimal_places=1)
 
     def __str__(self) -> str:
-        return f'Menu Item:{self.menu_item} requires ingredient: {self.ingredient}'
+        return f'{self.menu_item} requirement {self.ingredient}'
 
 class Purchase(models.Model):
     menu_item = models.ForeignKey(
@@ -39,5 +39,5 @@ class Purchase(models.Model):
     timestamp = models.DateTimeField()
 
     def __str__(self) -> str:
-        return f'Menu Item: {self.menu_item} purchase as {self.timestamp}'
+        return f'{self.menu_item} purchase {self.timestamp}'
     

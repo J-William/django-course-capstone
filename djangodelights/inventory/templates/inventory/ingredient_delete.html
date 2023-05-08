@@ -1,0 +1,10 @@
+{% extends 'inventory/base.html' %} 
+
+{% block content %}
+<h2>Delete Ingredient</h2>
+<form method="post">
+  {% csrf_token %}
+  <p>Are you sure you want to delete "{{ ingredient }}"?</p>
+  <input type="submit" value="Confirm" />
+</form>
+{% endblock content %}
