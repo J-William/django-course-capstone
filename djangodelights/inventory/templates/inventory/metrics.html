@@ -1,0 +1,9 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<h4>Sales</h4>
+<table class="table">
+    <tr><th>Revenue</th><th>Cost</th><th>Profit</th></tr>
+    <tr><td>{{ total_revenue }}</td><td>{{ total_cost }}</td><td>{{ total_profit }}</td></tr>
+</table>
+{% endblock content %}

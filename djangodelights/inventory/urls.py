@@ -12,4 +12,5 @@ urlpatterns = [
     ),
     path("menu-items", views.MenuItemView.as_view(), name="menu-items"),
     path("purchases", views.PurchaseView.as_view(), name="purchases"),
+    path("metrics", views.MetricsView.as_view(), name="metrics"),
 ]
