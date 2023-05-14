@@ -23,6 +23,7 @@ class RecipeRequirement(models.Model):
     menu_item = models.ForeignKey(
         "MenuItem",
         on_delete=models.CASCADE,
+        related_name="recipe_requirements",
     )
     ingredient = models.ForeignKey(
         "Ingredient",
