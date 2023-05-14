@@ -6,6 +6,9 @@ from django.views.generic.edit import DeleteView, CreateView, UpdateView
 from django.db.models import Sum
 from django.urls import reverse_lazy
 from django.utils import timezone
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.decorators import login_required
 
 from .models import Ingredient, MenuItem, Purchase, RecipeRequirement
 from .forms import IngredientForm, MenuItemForm, RecipeRequirementForm, PurchaseForm
@@ -14,43 +17,49 @@ from .forms import IngredientForm, MenuItemForm, RecipeRequirementForm, Purchase
 def index(request):
     return render(request, "inventory/home.html")
 
+class LoginView(LoginView):
+    template_name = "inventory/login.html"
 
-class IngredientView(ListView):
+class LogoutView(LogoutView):
+    next_page = reverse_lazy("login")
+
+
+class IngredientView(LoginRequiredMixin, ListView):
     model = Ingredient
     template_name = "inventory/ingredient_list.html"
     context_object_name = "ingredients"
 
-class IngredientDeleteView(DeleteView):
+class IngredientDeleteView(LoginRequiredMixin, DeleteView):
     model = Ingredient
     template_name = "inventory/ingredient_delete.html"
     form_class = IngredientForm
     success_url = reverse_lazy("ingredients")
 
-class IngredientCreateView(CreateView):
+class IngredientCreateView(LoginRequiredMixin, CreateView):
     model = Ingredient
     template_name = "inventory/ingredient_create.html"
     form_class = IngredientForm
     success_url = reverse_lazy("ingredients")
 
-class IngredientUpdateView(UpdateView):
+class IngredientUpdateView(LoginRequiredMixin, UpdateView):
     model = Ingredient
     template_name = "inventory/ingredient_edit.html"
     form_class = IngredientForm
     success_url = reverse_lazy("ingredients")
 
-class MenuItemView(ListView):
+class MenuItemView(LoginRequiredMixin, ListView):
     model = MenuItem
     template_name = "inventory/menuitem_list.html"
     context_object_name = "menuitems"
 
-class MenuItemCreateView(CreateView):
+class MenuItemCreateView(LoginRequiredMixin, CreateView):
     model = MenuItem
     template_name = "inventory/menuitem_create.html"
     context_object_name = "menuitems"
     form_class = MenuItemForm
     success_url = reverse_lazy("menu-items")
 
-class RecipeRequirementCreateView(CreateView):
+class RecipeRequirementCreateView(LoginRequiredMixin, CreateView):
     model = RecipeRequirement
     template_name = "inventory/reciperequirement_create.html"
     context_object_name = "reciperequirements"
@@ -58,12 +67,12 @@ class RecipeRequirementCreateView(CreateView):
     success_url = reverse_lazy("menu-items")
 
 
-class PurchaseView(ListView):
+class PurchaseView(LoginRequiredMixin, ListView):
     model = Purchase
     template_name = "inventory/purchase_list.html"
     context_object_name = "purchases"
 
-class PurchaseCreateView(CreateView):
+class PurchaseCreateView(LoginRequiredMixin, CreateView):
     model = Purchase
     template_name = "inventory/purchase_create.html"
     context_object_name = "purchases"
@@ -83,7 +92,7 @@ class PurchaseCreateView(CreateView):
         return super().form_valid(form)
 
 
-class MetricsView(TemplateView):
+class MetricsView(LoginRequiredMixin, TemplateView):
     template_name = "inventory/metrics.html"
 
     def get_context_data(self, **kwargs):
