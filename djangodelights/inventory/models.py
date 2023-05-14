@@ -31,7 +31,7 @@ class RecipeRequirement(models.Model):
     quantity = models.DecimalField(max_digits=4, decimal_places=1)
 
     def __str__(self) -> str:
-        return f'{self.menu_item} requirement {self.ingredient}'
+        return f"{self.menu_item} requirement {self.ingredient}"
 
 
 class Purchase(models.Model):
@@ -44,5 +44,4 @@ class Purchase(models.Model):
     paid = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self) -> str:
-        return f'{self.menu_item} purchase {self.timestamp}'
-    
+        return f"{self.menu_item} purchase {self.timestamp}"

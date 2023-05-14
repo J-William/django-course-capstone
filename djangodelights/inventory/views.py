@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import DeleteView
@@ -9,7 +9,7 @@ from .forms import IngredientForm
 
 
 def index(request):
-    return HttpResponse("hello world")
+    return render(request, "inventory/home.html")
 
 
 class IngredientView(ListView):
@@ -42,9 +42,13 @@ class MetricsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
-        context["total_revenue"] = Purchase.objects.aggregate(Sum("paid"))["paid__sum"] or 0
-        context["total_cost"] = Purchase.objects.aggregate(Sum("cost"))["cost__sum"] or 0
+
+        context["total_revenue"] = (
+            Purchase.objects.aggregate(Sum("paid"))["paid__sum"] or 0
+        )
+        context["total_cost"] = (
+            Purchase.objects.aggregate(Sum("cost"))["cost__sum"] or 0
+        )
         context["total_profit"] = context["total_revenue"] - context["total_cost"]
 
         return context
