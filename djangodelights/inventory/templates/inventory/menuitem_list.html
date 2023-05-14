@@ -3,9 +3,10 @@
 {% block content %}
 <h4>Menu Items</h4>
 <table class="table">
-    <tr><th>Name</th><th>Price</th></tr>
+    <tr><th>Name</th><th>Price</th><th></th></tr>
     {% for item in menuitems %}
-    <tr><td>{{ item.title }}</td><td>{{ item.price }}</td></tr>
+    <tr><td>{{ item.title }}</td><td>{{ item.price }}</td><td><a class="btn btn-primary" href="{% url 'recipe-requirement-create' %}">Add Requirement</a></td></tr>
     {% endfor %}
 </table>
+<a href="{% url 'menu-item-create' %}" class="btn btn-primary">Add Item</a>
 {% endblock content %}

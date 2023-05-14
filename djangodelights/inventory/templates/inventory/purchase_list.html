@@ -8,4 +8,5 @@
     <tr><td>{{ purchase.menu_item }}</td><td>{{ purchase.timestamp }}</td></tr>
     {% endfor %}
 </table>
+<a href="{% url 'purchase-create' %}" class="btn btn-primary">Add Purchase</a>
 {% endblock content %}

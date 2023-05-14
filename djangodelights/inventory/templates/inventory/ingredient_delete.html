@@ -5,6 +5,7 @@
 <form method="post">
   {% csrf_token %}
   <p>Are you sure you want to delete "{{ ingredient }}"?</p>
-  <input type="submit" value="Confirm" />
+  <a class="btn btn-primary" href="{% url 'ingredients' %}">Cancel</a>
+  <button type="submit" class="btn btn-danger">Confirm</button>
 </form>
 {% endblock content %}

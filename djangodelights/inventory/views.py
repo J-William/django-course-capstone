@@ -90,10 +90,10 @@ class MetricsView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         context["total_revenue"] = (
-            Purchase.objects.aggregate(Sum("paid"))["paid__sum"] or 0
+            round(Purchase.objects.aggregate(Sum("paid"))["paid__sum"], 2) or 0
         )
         context["total_cost"] = (
-            Purchase.objects.aggregate(Sum("cost"))["cost__sum"] or 0
+            round(Purchase.objects.aggregate(Sum("cost"))["cost__sum"], 2) or 0
         )
         context["total_profit"] = context["total_revenue"] - context["total_cost"]
 
